@@ -1,6 +1,6 @@
 // src/app/book/[id]/page.tsx
 
-import { books } from '../../../data'; // <--- บรรทัดที่ถูกต้อง (ลบ /src ออก)
+import { books } from '@/data';
 import Image from 'next/image';
 import Link from 'next/link';
 
