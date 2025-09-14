@@ -1,6 +1,4 @@
-// src/app/book/[id]/page.tsx
-
-import { books } from '@/data';
+import { books } from '@/data'; // <--- บรรทัดที่ถูกต้อง
 import Image from 'next/image';
 import Link from 'next/link';
 
