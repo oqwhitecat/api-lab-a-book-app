@@ -1,5 +1,4 @@
 // src/data.ts
-
 export interface Book {
   id: number;
   title: string;
@@ -28,6 +27,7 @@ export const books: Book[] = [
     title: 'Designing Data-Intensive Applications',
     author: 'Martin Kleppmann',
     description: 'The Big Ideas Behind Reliable, Scalable, and Maintainable Systems.',
-    coverImage: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1491741857l/23463279.jpg'
+    // URL รูปภาพที่แก้ไขแล้ว
+    coverImage: 'https://m.media-amazon.com/images/I/51gP03-m1sL.jpg'
   }
 ];
