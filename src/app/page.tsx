@@ -1,95 +1,47 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+// src/app/book/[id]/page.tsx
 
-export default function Home() {
+import { books } from '../../../data'; // <--- บรรทัดที่ถูกต้อง (ลบ /src ออก)
+import Image from 'next/image';
+import Link from 'next/link';
+
+export default function BookDetailPage({ params }: { params: { id: string } }) {
+  // ค้นหาหนังสือจาก id ที่ได้รับมาทาง URL
+  const book = books.find((b) => b.id === parseInt(params.id));
+
+  // ถ้าไม่เจอหนังสือ ให้แสดงข้อความว่า "Book not found"
+  if (!book) {
+    return (
+        <main className="p-8 text-center">
+            <h1 className="text-2xl">Book not found.</h1>
+            <Link href="/" className="text-blue-500 hover:underline mt-4 inline-block">
+                &larr; Back to List
+            </Link>
+        </main>
+    );
+  }
+
+  // ถ้าเจอหนังสือ ให้แสดงรายละเอียดทั้งหมด
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+    <main className="p-8">
+      <Link href="/" className="text-blue-500 hover:underline mb-6 inline-block">
+        &larr; Back to List
+      </Link>
+      <div className="flex flex-col md:flex-row gap-8 items-start">
+         <div className="w-full md:w-1/3 flex-shrink-0">
             <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+                src={book.coverImage}
+                alt={`Cover of ${book.title}`}
+                width={400}
+                height={600}
+                className="rounded-lg shadow-md w-full object-cover"
             />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+         </div>
+         <div className="w-full md:w-2/3">
+            <h1 className="text-4xl font-bold mb-2">{book.title}</h1>
+            <h2 className="text-2xl text-gray-700 mb-4">by {book.author}</h2>
+            <p className="text-lg leading-relaxed">{book.description}</p>
+         </div>
+      </div>
+    </main>
   );
 }
